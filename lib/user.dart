@@ -1,28 +1,28 @@
-import 'package:first_app/people.dart';
-import 'package:first_app/person.dart';
+import 'package:first_app/city.dart';
 
-class User extends People {
+import 'address.dart';
+
+class User implements City, Address {
   late int id;
   late String name;
 
   // User(this.id, this.name) : super(18);
   User(this.id, this.name) : super();
 
-  void logInfo() {
-    // print("Id: $id, Name: $name, Age: $age");
+  @override
+  void showCity() {
+    // TODO: implement showCity
+    print('Da Nang City');
   }
 
-  //required
   @override
-  void function() {
-    // TODO: implement function
-    print('OverRide Function');
+  void presentCity() {
+    // TODO: implement presentCity
+    print('OverRide Binh Dinh Provinde');
   }
 
-  //no required
   @override
-  void function2() {
-    // TODO: implement function2
-    print('OverRide Function2');
+  void showAddress() {
+    // TODO: implement showAddress
   }
 }
