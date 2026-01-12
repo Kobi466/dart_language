@@ -1,15 +1,13 @@
-import 'package:first_app/model/user.dart';
+import 'package:first_app/user.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   // runApp(const MyApp());
-  // User user = User.name(6, 'John333');
   User user = User(1, 'loi');
-  //setter
-  user.name = 'kobi';
-  user.id = 2;
-  print(user.toString());
-  user.logInfo();
+  // user.logInfo();
+  // user.logAge();
+  user.function();
+  user.function2();
 }
 
 class MyApp extends StatelessWidget {
