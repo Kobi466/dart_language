@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 
 void main() {
   // runApp(const MyApp());
-  User user = User(5, 'Loi');
-  user.presentCity();
-  user.showCity();
+  User user = User(1, 'loi');
+  user.show();
 }
 
 class MyApp extends StatelessWidget {
