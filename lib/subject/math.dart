@@ -8,3 +8,9 @@ mixin Math on A00 implements Subject {
     print('showScoreMath');
   }
 }
+
+extension ToanHinh on Math {
+  void showScoreToanHinh() {
+    print('showScoreToanHinh');
+  }
+}

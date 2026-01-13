@@ -11,5 +11,6 @@ class TuNhien extends A00 with Math, Chemistry, Physic implements Combination {
     showScoreChemistry();
     showScoreMath();
     showScorePhysic();
+    showScoreToanHinh();
   }
 }
