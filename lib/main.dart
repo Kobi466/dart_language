@@ -28,16 +28,19 @@ void main() {
 class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: RichText(text:
-          TextSpan(
-            style: DefaultTextStyle.of(context).style,
-            children:const <TextSpan>[
-              TextSpan(text: "Hello"),
-              TextSpan(text: "bold", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: "Times New Roman")),
-              TextSpan(text: 'world !!!')
-            ]
-          )
+    return Card(
+      color: Colors.cyanAccent,
+      margin: EdgeInsets.all(20),
+      child: Padding(
+        // padding: const EdgeInsets.only(left: 50, right: 50, bottom: 10, top: 10),
+        padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 100),
+        child: Text(
+          "kobi",
+          style: TextStyle(
+            fontFamily: "Times New Roman",
+            fontSize: 20,
+          ),
+        ),
       ),
     );
   }
