@@ -28,32 +28,16 @@ void main() {
 class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    // if (loading) {
-    //   return const CircularProgressIndicator();
-    // } else {
-    //   return const Text("Stateless Widget");
-    // }
-    return const Text("Nhớ năm đó tôi đỏ mắt nhìn những người được tiêm vaccine"
-        " phai zơ, còn tôi phải tiêm vê rô seo, bây giờ thì...hẹ hẹ hẹ ",
-      // textDirection: TextDirection.ltr,
-      textAlign: TextAlign.justify,
-      // maxLines: 3,
-      // overflow: TextOverflow.ellipsis,
-      // textScaleFactor: 1,
-      style: TextStyle(
-        fontSize: 24,
-        color: Colors.orange,
-        // background:Colors.white10,
-        // fontWeight: FontWeight.w400,
-        fontStyle: FontStyle.italic,
-        fontFamily: "Times New Roman",
-        // height: 2,
-        letterSpacing: 0,
-        // wordSpacing: 20,
-        // decoration: TextDecoration.underline,
-        // decorationColor: Colors.cyanAccent,
-        // decorationStyle: TextDecorationStyle.solid
+    return Center(
+      child: RichText(text:
+          TextSpan(
+            style: DefaultTextStyle.of(context).style,
+            children:const <TextSpan>[
+              TextSpan(text: "Hello"),
+              TextSpan(text: "bold", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: "Times New Roman")),
+              TextSpan(text: 'world !!!')
+            ]
+          )
       ),
     );
   }
