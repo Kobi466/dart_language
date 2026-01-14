@@ -4,33 +4,28 @@ void main() {
   runApp(MaterialApp(
     home: SafeArea(
         child: Scaffold(
-          // appBar: AppBar(
-          //   title: const Text("Flutter Demo"),
-          //   backgroundColor: Colors.orange,
-          // ),
-          // body: const Center(
-          //   child: Text("Hello Flutter"),
-          // ),
-          body: Center(child: MyWidget2(false)),
+          appBar: AppBar(
+            title: Text("Tan loi"),
+            backgroundColor: Colors.deepPurpleAccent,
+          ),
+          body: MyWidget(),
           bottomNavigationBar: BottomNavigationBar(items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(icon: Icon(Icons.eighteen_up_rating_sharp), label: "Home"),
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           ])
         ),
     ),
     debugShowCheckedModeBanner: false,
     title: "Flutter Demo",
-    theme: ThemeData.dark(),
+    theme: ThemeData(
+      fontFamily: "Freedom-10eM",
+    ),
+    darkTheme: ThemeData.dark(),
   ));
 }
 
 class MyWidget extends StatelessWidget {
-
-  final bool loading;
-
-  MyWidget(this.loading);
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -39,41 +34,27 @@ class MyWidget extends StatelessWidget {
     // } else {
     //   return const Text("Stateless Widget");
     // }
-    return loading ? const CircularProgressIndicator() : const Text("Stateless Widget");
-  }
-}
-
-class MyWidget2 extends StatefulWidget {
-  final bool loading;
-
-  MyWidget2(this.loading);
-
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return MyWidget2State();
-  }
-}
-
-class MyWidget2State extends State<MyWidget2> {
-
-  late bool _localLoading;
-
-  @override
-  void initState() {
-    super.initState();
-    // TODO: implement initState
-    _localLoading = widget.loading;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return _localLoading ? const CircularProgressIndicator() : FloatingActionButton(onPressed: onClickButton);
-  }
-  void onClickButton(){
-    setState(() {
-      _localLoading = true;
-    });
+    return const Text("Nhớ năm đó tôi đỏ mắt nhìn những người được tiêm vaccine"
+        " phai zơ, còn tôi phải tiêm vê rô seo, bây giờ thì...hẹ hẹ hẹ ",
+      // textDirection: TextDirection.ltr,
+      textAlign: TextAlign.justify,
+      // maxLines: 3,
+      // overflow: TextOverflow.ellipsis,
+      // textScaleFactor: 1,
+      style: TextStyle(
+        fontSize: 24,
+        color: Colors.orange,
+        // background:Colors.white10,
+        // fontWeight: FontWeight.w400,
+        fontStyle: FontStyle.italic,
+        fontFamily: "Times New Roman",
+        // height: 2,
+        letterSpacing: 0,
+        // wordSpacing: 20,
+        // decoration: TextDecoration.underline,
+        // decorationColor: Colors.cyanAccent,
+        // decorationStyle: TextDecorationStyle.solid
+      ),
+    );
   }
 }
