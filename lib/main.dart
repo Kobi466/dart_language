@@ -29,32 +29,25 @@ class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // color: Colors.cyanAccent,
+      height: 100,
+      width: 200,
+      padding: EdgeInsets.all(20),
       margin: EdgeInsets.all(30),
-      child: OutlinedButton.icon(
-          onPressed: (){
-            print("Outlined Button");
-          },
-          style: OutlinedButton.styleFrom(
-            padding: EdgeInsets.all(20),
-            backgroundColor: Colors.cyanAccent,
-            foregroundColor: Colors.black,
-            minimumSize: const Size(240, 80),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadiusGeometry.circular(30)
-            ),
-            elevation: 30,
-            shadowColor: Colors.black,
-            side: BorderSide(width: 2, color: Colors.black)
-          ),
-          icon: Icon(Icons.one_k_plus_outlined, size: 30,),
-          label: Text(
-              "Outlined Button",
-            style: TextStyle(
-              fontSize: 24,
-              fontFamily: "Times New Roman",
-            ),
-          )
+      alignment: Alignment.centerLeft,
+      // child: const Text(
+      //     "Loi Kobi",
+      //   style: TextStyle(
+      //     fontSize: 24
+      //   ),
+      // ),
+      decoration: BoxDecoration(
+        color: Colors.black,
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.all(Radius.circular(9)),
+        border: Border.all(width: 2, color: Colors.cyanAccent),
       ),
+        transform: Matrix4.rotationZ(1)
     );
   }
 }
