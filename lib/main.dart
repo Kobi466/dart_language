@@ -31,15 +31,22 @@ class MyWidget extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(20),
       child: TextButton(
-          onPressed: (){
-            print('Click text button');
-          },
+          onPressed: null,
           style: TextButton.styleFrom(
-            foregroundColor: Colors.redAccent,
-            backgroundColor: Colors.cyan,
-            // minimumSize: const Size(120, 120)
-            padding: EdgeInsets.all(40),
+            // foregroundColor: Colors.redAccent,
+            // backgroundColor: Colors.cyan,
+            // // minimumSize: const Size(120, 120)
+            // padding: EdgeInsets.all(40),
+            // shape: RoundedRectangleBorder(
+            //   borderRadius: BorderRadiusGeometry.circular(20),
+            // ),
+            // elevation: 50,
+            // shadowColor: Colors.deepPurple,
+            // side: BorderSide(width: 2, color: Colors.white10)
+            disabledBackgroundColor: Colors.red,
+            disabledForegroundColor: Colors.black
           ),
+          // icon: Icon(Icons.fax_rounded, size: 24,),
           child: const Text(
             "Text Button",
             style: TextStyle(
