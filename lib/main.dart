@@ -29,28 +29,28 @@ class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(20),
-      child: TextButton(
-          onPressed: null,
-          style: TextButton.styleFrom(
-            // foregroundColor: Colors.redAccent,
-            // backgroundColor: Colors.cyan,
-            // // minimumSize: const Size(120, 120)
-            // padding: EdgeInsets.all(40),
-            // shape: RoundedRectangleBorder(
-            //   borderRadius: BorderRadiusGeometry.circular(20),
-            // ),
-            // elevation: 50,
-            // shadowColor: Colors.deepPurple,
-            // side: BorderSide(width: 2, color: Colors.white10)
-            disabledBackgroundColor: Colors.red,
-            disabledForegroundColor: Colors.black
+      margin: EdgeInsets.all(30),
+      child: ElevatedButton.icon(
+          onPressed: (){
+            print("Elevated Button");
+          },
+          style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.all(20),
+            backgroundColor: Colors.cyanAccent,
+            foregroundColor: Colors.black,
+            minimumSize: const Size(240, 80),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadiusGeometry.circular(30)
+            ),
+            elevation: 30,
+            shadowColor: Colors.black,
+            side: BorderSide(width: 2, color: Colors.black)
           ),
-          // icon: Icon(Icons.fax_rounded, size: 24,),
-          child: const Text(
-            "Text Button",
+          icon: Icon(Icons.one_k_plus_outlined, size: 30,),
+          label: Text(
+              "Elevated Button",
             style: TextStyle(
-              fontSize: 28,
+              fontSize: 24,
               fontFamily: "Times New Roman",
             ),
           )
