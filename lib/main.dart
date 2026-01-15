@@ -28,19 +28,25 @@ void main() {
 class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.cyanAccent,
+    return Container(
       margin: EdgeInsets.all(20),
-      child: Padding(
-        // padding: const EdgeInsets.only(left: 50, right: 50, bottom: 10, top: 10),
-        padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 100),
-        child: Text(
-          "kobi",
-          style: TextStyle(
-            fontFamily: "Times New Roman",
-            fontSize: 20,
+      child: TextButton(
+          onPressed: (){
+            print('Click text button');
+          },
+          style: TextButton.styleFrom(
+            foregroundColor: Colors.redAccent,
+            backgroundColor: Colors.cyan,
+            // minimumSize: const Size(120, 120)
+            padding: EdgeInsets.all(40),
           ),
-        ),
+          child: const Text(
+            "Text Button",
+            style: TextStyle(
+              fontSize: 28,
+              fontFamily: "Times New Roman",
+            ),
+          )
       ),
     );
   }
