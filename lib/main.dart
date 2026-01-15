@@ -30,11 +30,11 @@ class MyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(30),
-      child: ElevatedButton.icon(
+      child: OutlinedButton.icon(
           onPressed: (){
-            print("Elevated Button");
+            print("Outlined Button");
           },
-          style: ElevatedButton.styleFrom(
+          style: OutlinedButton.styleFrom(
             padding: EdgeInsets.all(20),
             backgroundColor: Colors.cyanAccent,
             foregroundColor: Colors.black,
@@ -48,7 +48,7 @@ class MyWidget extends StatelessWidget {
           ),
           icon: Icon(Icons.one_k_plus_outlined, size: 30,),
           label: Text(
-              "Elevated Button",
+              "Outlined Button",
             style: TextStyle(
               fontSize: 24,
               fontFamily: "Times New Roman",
