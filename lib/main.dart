@@ -28,28 +28,77 @@ void main() {
 class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 120,
-      height: 48,
-      child: ElevatedButton(
-          onPressed: (){},
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red,
-            foregroundColor: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            side: BorderSide(
-              color: Colors.black,
-              width: 2,
+    return Container(
+      color: Colors.amberAccent,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          ElevatedButton(
+              onPressed: (){},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepPurpleAccent,
+              ),
+              child: Text(
+                "Button 1",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              )
+          ),
+          Container(
+            height: 100,
+            child: ElevatedButton(
+                onPressed: (){},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.deepPurpleAccent,
+                ),
+                child: Text(
+                  "Button 2",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                )
             ),
           ),
-          child: Text(
-              "Button",
-            style: TextStyle(
-              fontFamily: "Times New Roman",
-            ),
-          )
+          ElevatedButton(
+              onPressed: (){},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepPurpleAccent,
+              ),
+              child: Text(
+                "Button 3",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              )
+          ),
+          // Icon(Icons.star),
+          // Spacer(),
+          // SizedBox(width: 20),
+          // Expanded(
+          //   child: Text("ccccccccccccccccccccccccccccccccccccccc"
+          //       "ccccccccccccccccccccccccccccccccccccccc"
+          //       "ccccccccccccccccccccccccccccccccccccccc"
+          //       "ccccccccccccccccccccccccccccccccccccccc"
+          //       "ccccccccccccccccccccccccccccccccccccccc"
+          //       "ccccccccccccccccccccccccccccccccccccccc"
+          //       "ccccccccccccccccccccccccccccccccccccccc",
+          //     overflow: TextOverflow.ellipsis,
+          //   ),
+          // ),
+          // SizedBox(width: 20),
+          // Flexible(
+          //   child: Text('Đây là một đoạn text rất rất rất dài '
+          //       'ccccccccccccccccccccccccccccccccccccccc'
+          //       'ccccccccccccccccccccccccccccccccccccccc'
+          //       'ccccccccccccccccccccccccccccccccccccccc'
+          //       'ccccccccccccccccccccccccccccccccccccccc',
+          //     // overflow: TextOverflow.ellipsis,
+          //   ),
+          // ),
+        ],
       ),
     );
   }
