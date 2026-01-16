@@ -28,29 +28,17 @@ void main() {
 class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 120,
-      height: 48,
-      child: ElevatedButton(
-          onPressed: (){},
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red,
-            foregroundColor: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            side: BorderSide(
-              color: Colors.black,
-              width: 2,
-            ),
-          ),
-          child: Text(
-              "Button",
-            style: TextStyle(
-              fontFamily: "Times New Roman",
-            ),
-          )
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: const [
+        Text('Email'),
+        SizedBox(height: 8),
+        TextField(),
+        SizedBox(height: 16),
+        Text('Password'),
+        SizedBox(height: 8),
+        TextField(),
+      ],
     );
   }
 }
