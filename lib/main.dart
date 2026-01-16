@@ -28,26 +28,29 @@ void main() {
 class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // color: Colors.cyanAccent,
-      height: 100,
-      width: 200,
-      padding: EdgeInsets.all(20),
-      margin: EdgeInsets.all(30),
-      alignment: Alignment.centerLeft,
-      // child: const Text(
-      //     "Loi Kobi",
-      //   style: TextStyle(
-      //     fontSize: 24
-      //   ),
-      // ),
-      decoration: BoxDecoration(
-        color: Colors.black,
-        shape: BoxShape.rectangle,
-        borderRadius: BorderRadius.all(Radius.circular(9)),
-        border: Border.all(width: 2, color: Colors.cyanAccent),
+    return SizedBox(
+      width: 120,
+      height: 48,
+      child: ElevatedButton(
+          onPressed: (){},
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.red,
+            foregroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            side: BorderSide(
+              color: Colors.black,
+              width: 2,
+            ),
+          ),
+          child: Text(
+              "Button",
+            style: TextStyle(
+              fontFamily: "Times New Roman",
+            ),
+          )
       ),
-        transform: Matrix4.rotationZ(1)
     );
   }
 }
