@@ -8,7 +8,7 @@ void main() {
             title: Text("Tan loi"),
             backgroundColor: Colors.deepPurpleAccent,
           ),
-          body: MyWidget(),
+          body: MyWidgetStateFul(),
           bottomNavigationBar: BottomNavigationBar(items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
             BottomNavigationBarItem(icon: Icon(Icons.eighteen_up_rating_sharp), label: "Home"),
@@ -25,57 +25,163 @@ void main() {
   ));
 }
 
-class MyWidget extends StatelessWidget {
+// class MyWidgetStateLess extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: const EdgeInsets.all(8.0),
+//       child: TextField(
+//         decoration: InputDecoration(
+//           labelText: "User Name",
+//           hintText: "Enter your name",
+//           prefixIcon: Icon(Icons.person),
+//           border: OutlineInputBorder(),
+//         ),
+//       ),
+//     );
+//   }
+// }
+class MyWidgetStateFul extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return Build();
+  }
+}
+class Build extends State<MyWidgetStateFul>{
+  final controller = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    controller.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          color: Colors.red,
-        ),
-        Positioned(
-          // top: 10,
-          left: 10,
-          right: 10,
-          bottom: 10,
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Container(
-              margin: EdgeInsets.all(10),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Text(
-                      "Card",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                        fontFamily: "Times New Roman"
-                      ),
-                    ),
-                    Divider(),
-                    SizedBox(height: 25),
-                    Text(
-                      "Con này xịn. Dùng rất sướng. Nhiều khi thấy nó khôn hơn cả "
-                          "Gemini, Grok ở 1 số trường hợp tạo ảnh. Dùng song song mấy "
-                          "con thì nó bù trừ những đoạn ngốc nghếch của nhau",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                        fontFamily: "Times New Roman"
-                      ),
-                      textAlign: TextAlign.justify,
-                    )
-                  ],
-                ),
-              ),
+    return form();
+  }
+  Padding input(){
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          TextField(
+            controller: controller,
+            decoration: InputDecoration(
+              labelText: "User Name",
+              hintText: "Enter your name",
+              prefixIcon: Icon(Icons.person),
+              border: OutlineInputBorder(),
             ),
           ),
-        ),
-      ],
+          SizedBox(height: 10,),
+          TextField(
+            decoration: InputDecoration(
+              labelText: "Password",
+              hintText: "Enter your password",
+              prefixIcon: Icon(Icons.lock),
+              border: OutlineInputBorder(),
+            ),
+          ),
+          Row(
+            children: [
+              InkWell(
+                child: Text("Don't have an account?"),
+                onTap: (){
+
+                },
+              ),
+              SizedBox(width: 100),
+              ElevatedButton(
+                  onPressed: (){
+                    print(controller.text);
+                  },
+                  child: Text("Login")
+              ),
+            ],
+          ),
+          SizedBox(height: 10,),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+                onPressed: (){
+
+                },
+                child: Text("Register")
+            ),
+          ),
+          SizedBox(height: 10,),
+          //Search
+          TextField(
+            onChanged: (value){
+              print(value);
+            },
+          )
+        ],
+      ),
+    );
+  }
+  Widget form(){
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          CircleAvatar(
+            radius: 50,
+            backgroundImage: AssetImage("assets/images/avatar.jpg"),
+          ),
+          Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                const SizedBox(height: 10,),
+                TextFormField(
+                  controller: emailController,
+                  decoration: InputDecoration(
+                    labelText: "Email",
+                    hintText: "Enter your email",
+                    prefixIcon: Icon(Icons.email),
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (v) =>
+                  v != null && v.contains('@') ? null : "Email is not valid",
+                ),
+                SizedBox(height: 10,),
+                TextFormField(
+                  obscureText: true,
+                  controller: passwordController,
+                  decoration: InputDecoration(
+                    labelText: "Password",
+                    hintText: "Enter your password",
+                    prefixIcon: Icon(Icons.password),
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (v) =>
+                  v != null && v.length >= 6 ? null : "Password is not valid",
+                ),
+                const SizedBox(height: 16,),
+                ElevatedButton(
+                    onPressed: (){
+                      if(_formKey.currentState!.validate()){
+                        print(AutofillHints.username);
+                        print(AutofillHints.password);
+                      }
+                    },
+                    child: Text("Login")
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
+
