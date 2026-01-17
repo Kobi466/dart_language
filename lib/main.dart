@@ -28,49 +28,53 @@ void main() {
 class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.red,
-      width: 500,
-      height: 500,
-      child: Stack(
-        fit: StackFit.loose,
-        alignment: Alignment.center,
-        clipBehavior: Clip.none,
-        children: [
-          Container(
-            width: 300,
-            height: 300,
-            color: Colors.green,
-          ),
-          Positioned(
-            top: 100,
-            left: 100,
-            child: Container(
-              width: 600,
-              height: 600,
-              color: Colors.blue,
+    return Column(
+      children: [
+        Row(
+          children: [
+            Flexible(child: Text('Một đoạn text rất rất rất dài')),
+            Icon(Icons.star),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(child: Text('Một đoạn text rất rất rất dài')),
+            Icon(Icons.star),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: Container(
+                color: Colors.red,
+                height: 100,
+                width: 100,
+              ),
             ),
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Container(
-              width: 50,
-              height: 50,
-              color: Colors.yellow,
+            Icon(Icons.star),
+          ],
+        ),
+        Row(
+          children: [
+            Flexible(
+              flex: 2,
+              fit: FlexFit.loose,
+              child: Container(
+                color: Colors.amber,
+                height: 100,
+                // width: 800,
+              ),
             ),
-          ),
-          Container(
-            width: 50,
-            height: 50,
-            color: Colors.deepPurple,
-          ),
-          Container(
-            width: 23,
-            height: 23,
-            color: Colors.deepOrange,
-          )
-        ],
-      )
+            Flexible(
+              fit: FlexFit.loose,
+              flex: 1,
+              child: Icon(Icons.star),
+            ),
+          ],
+        ),
+      ],
     );
+
+
   }
 }
