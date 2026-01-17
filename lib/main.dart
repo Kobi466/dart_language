@@ -28,17 +28,107 @@ void main() {
 class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: const [
-        Text('Email'),
-        SizedBox(height: 8),
-        TextField(),
-        SizedBox(height: 16),
-        Text('Password'),
-        SizedBox(height: 8),
-        TextField(),
-      ],
+    return Container(
+      child: Column(
+        children: [
+          Row(
+            children: [
+              SizedBox(
+                width: 120,
+                child: Text(
+                  "UserName:",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              Text(
+                "Nguyen van A",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.black,
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 10,),
+          Row(
+            children: [
+              SizedBox(
+                width: 120,
+                child: Text(
+                  "Email:",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              Text(
+                "NguyenA@gmail.com",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.black,
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 10,),
+          Row(
+            children: [
+              SizedBox(
+                width: 120,
+                child: Text(
+                  "Address:",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              Text(
+                "Da Nang",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.black,
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 10,),
+          Row(
+            children: [
+              Expanded(
+                  child: ElevatedButton(
+                      onPressed:(){},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white10,
+                      ),
+                      child: Text(
+                        "Cancel",
+                        style: TextStyle(
+                          fontSize: 14,
+                        ),
+                      )
+                  )
+              ),
+              const SizedBox(width: 10,),
+              Expanded(
+                  child: ElevatedButton(
+                      onPressed:(){},
+                      child: Text(
+                        "Submit",
+                        style: TextStyle(
+                          fontSize: 14,
+                        ),
+                      )
+                  )
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
