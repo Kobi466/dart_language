@@ -29,106 +29,48 @@ class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
+      color: Colors.red,
+      width: 500,
+      height: 500,
+      child: Stack(
+        fit: StackFit.loose,
+        alignment: Alignment.center,
+        clipBehavior: Clip.none,
         children: [
-          Row(
-            children: [
-              SizedBox(
-                width: 120,
-                child: Text(
-                  "UserName:",
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              Text(
-                "Nguyen van A",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.black,
-                ),
-              )
-            ],
+          Container(
+            width: 300,
+            height: 300,
+            color: Colors.green,
           ),
-          const SizedBox(height: 10,),
-          Row(
-            children: [
-              SizedBox(
-                width: 120,
-                child: Text(
-                  "Email:",
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              Text(
-                "NguyenA@gmail.com",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.black,
-                ),
-              )
-            ],
+          Positioned(
+            top: 100,
+            left: 100,
+            child: Container(
+              width: 600,
+              height: 600,
+              color: Colors.blue,
+            ),
           ),
-          const SizedBox(height: 10,),
-          Row(
-            children: [
-              SizedBox(
-                width: 120,
-                child: Text(
-                  "Address:",
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              Text(
-                "Da Nang",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.black,
-                ),
-              )
-            ],
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+              width: 50,
+              height: 50,
+              color: Colors.yellow,
+            ),
           ),
-          const SizedBox(height: 10,),
-          Row(
-            children: [
-              Expanded(
-                  child: ElevatedButton(
-                      onPressed:(){},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white10,
-                      ),
-                      child: Text(
-                        "Cancel",
-                        style: TextStyle(
-                          fontSize: 14,
-                        ),
-                      )
-                  )
-              ),
-              const SizedBox(width: 10,),
-              Expanded(
-                  child: ElevatedButton(
-                      onPressed:(){},
-                      child: Text(
-                        "Submit",
-                        style: TextStyle(
-                          fontSize: 14,
-                        ),
-                      )
-                  )
-              )
-            ],
+          Container(
+            width: 50,
+            height: 50,
+            color: Colors.deepPurple,
           ),
+          Container(
+            width: 23,
+            height: 23,
+            color: Colors.deepOrange,
+          )
         ],
-      ),
+      )
     );
   }
 }
