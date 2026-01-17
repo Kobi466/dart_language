@@ -28,53 +28,54 @@ void main() {
 class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
-        Row(
-          children: [
-            Flexible(child: Text('Một đoạn text rất rất rất dài')),
-            Icon(Icons.star),
-          ],
+        Container(
+          color: Colors.red,
         ),
-        Row(
-          children: [
-            Expanded(child: Text('Một đoạn text rất rất rất dài')),
-            Icon(Icons.star),
-          ],
-        ),
-        Row(
-          children: [
-            Expanded(
-              child: Container(
-                color: Colors.red,
-                height: 100,
-                width: 100,
+        Positioned(
+          // top: 10,
+          left: 10,
+          right: 10,
+          bottom: 10,
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Container(
+              margin: EdgeInsets.all(10),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Text(
+                      "Card",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                        fontFamily: "Times New Roman"
+                      ),
+                    ),
+                    Divider(),
+                    SizedBox(height: 25),
+                    Text(
+                      "Con này xịn. Dùng rất sướng. Nhiều khi thấy nó khôn hơn cả "
+                          "Gemini, Grok ở 1 số trường hợp tạo ảnh. Dùng song song mấy "
+                          "con thì nó bù trừ những đoạn ngốc nghếch của nhau",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                        fontFamily: "Times New Roman"
+                      ),
+                      textAlign: TextAlign.justify,
+                    )
+                  ],
+                ),
               ),
             ),
-            Icon(Icons.star),
-          ],
-        ),
-        Row(
-          children: [
-            Flexible(
-              flex: 2,
-              fit: FlexFit.loose,
-              child: Container(
-                color: Colors.amber,
-                height: 100,
-                // width: 800,
-              ),
-            ),
-            Flexible(
-              fit: FlexFit.loose,
-              flex: 1,
-              child: Icon(Icons.star),
-            ),
-          ],
+          ),
         ),
       ],
     );
-
-
   }
 }
