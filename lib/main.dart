@@ -56,6 +56,12 @@ class Build extends State<MyWidgetStateFul>{
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  bool isChecked = false;
+  bool isOn = false;
+  int gender = 0;
+  String selected = 'A';
+  double value = 50;
+
   @override
   void dispose() {
     controller.dispose();
@@ -65,7 +71,7 @@ class Build extends State<MyWidgetStateFul>{
   }
   @override
   Widget build(BuildContext context) {
-    return form();
+    return slider();
   }
   Padding input(){
     return Padding(
@@ -74,6 +80,7 @@ class Build extends State<MyWidgetStateFul>{
         children: [
           TextField(
             controller: controller,
+            keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               labelText: "User Name",
               hintText: "Enter your name",
@@ -83,11 +90,14 @@ class Build extends State<MyWidgetStateFul>{
           ),
           SizedBox(height: 10,),
           TextField(
+            obscureText: true,
+            maxLength: 20,
             decoration: InputDecoration(
               labelText: "Password",
               hintText: "Enter your password",
               prefixIcon: Icon(Icons.lock),
               border: OutlineInputBorder(),
+              errorText: 'Khong du ki tu'
             ),
           ),
           Row(
@@ -123,7 +133,7 @@ class Build extends State<MyWidgetStateFul>{
             onChanged: (value){
               print(value);
             },
-          )
+          ),
         ],
       ),
     );
@@ -181,6 +191,70 @@ class Build extends State<MyWidgetStateFul>{
           ),
         ],
       ),
+    );
+  }
+  Checkbox checkbox(){
+    return Checkbox(
+      value: isChecked,
+      onChanged: (value){
+        setState(() {
+          isChecked = value!;
+        });
+      },
+    );
+  }
+  Switch turnOff(){
+    return Switch(
+      value: isOn,
+      onChanged: (value) {
+        setState(() {
+          isOn = value;
+        });
+      },
+    );
+  }
+  Row radio(){
+    return Row(
+      children: [
+        Radio(
+          value: gender,
+          onChanged: (value){
+            setState(() {
+              gender = value!;
+            });
+          },
+        ),
+      ],
+    );
+  }
+  DropdownButton dropdownButton(){
+    return DropdownButton<String>(
+      value: selected,
+      items: ['A', 'B', 'C'].map(
+          (e) => DropdownMenuItem(
+            value: e,
+            child: Text(e),
+          )
+      ).toList(),
+      onChanged: (value){
+        setState(() {
+          selected = value!;
+        });
+      },
+    );
+  }
+  Slider slider(){
+    return Slider(
+      value: value,
+      min: 0,
+      max: 100,
+      divisions: 10,
+      label: value.round().toString(),
+      onChanged: (v) {
+        setState(() {
+          value = v;
+        });
+      },
     );
   }
 }
