@@ -72,7 +72,7 @@ class Build extends State<MyWidgetStateFul> {
 
   @override
   Widget build(BuildContext context) {
-    return refreshIndicator();
+    return pageViewBuilder();
   }
 
   SingleChildScrollView scrollView() {
@@ -168,18 +168,53 @@ class Build extends State<MyWidgetStateFul> {
 
   GridView gridOptimal() {
     return GridView.builder(
+      itemCount: 10,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        // childAspectRatio: 0.75
+        childAspectRatio: 0.75,
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 5
       ),
       itemBuilder: (context, index) {
-        return Container(color: Colors.lightBlue);
+        return Container(
+          color: Colors.lightBlue,
+          margin: EdgeInsets.all(10),
+          child: Center(
+            child: Text(
+              "Item $index",
+              style: TextStyle(
+                color: Colors.green
+              ),
+            ),
+          ),
+        );
       },
     );
   }
 
   PageView pageSwipe() {
-    return PageView(children: []);
+    return PageView(
+      children: [
+        Container(color: Colors.green,),
+        Container(color: Colors.lightBlue,),
+        Container(color: Colors.redAccent,),
+      ],
+    );
+  }
+  //horizontal and vertical
+  PageView pageViewBuilder(){
+    return PageView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: 10,
+      itemBuilder: (context, index){
+        return Text(
+          "Page $index",
+          style: TextStyle(
+            fontSize: 24
+          ),
+        );
+      },
+    );
   }
 
   RefreshIndicator refreshIndicator() {
