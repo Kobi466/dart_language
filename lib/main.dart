@@ -19,7 +19,7 @@ void main() {
             ],
             backgroundColor: Colors.black54,
           ),
-          body: MyWidget(),
+          body: HomePage(),
           bottomNavigationBar: BottomNavigationBar(
             items: [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
@@ -129,6 +129,67 @@ class MyWidgetBuild extends State<MyWidget> {
           ),
           Text("Visible: $visible"),
         ],
+      ),
+    );
+  }
+
+  Hero hero(){
+    return Hero(
+      tag: "avatar",
+      child: CircleAvatar(
+        radius: 50,
+        backgroundImage: AssetImage("assets/images/avatar.jpg"),
+      ),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Home')),
+      body: Center(
+        child: GestureDetector(
+          onTap: (){
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => DetailPage()),
+            );
+          },
+          child: Hero(
+            tag: "avatar",
+            child: CircleAvatar(
+              radius: 50,
+              backgroundImage: AssetImage("assets/images/avatar.jpg"),
+            ),
+          )
+        ),
+      ),
+    );
+  }
+}
+
+/// =======================
+/// MÀN 2
+/// =======================
+class DetailPage extends StatelessWidget {
+  const DetailPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Detail')),
+      body: Center(
+        child: Hero(
+          tag: "avatar",
+          child: CircleAvatar(
+            radius: 400,
+            backgroundImage: AssetImage("assets/images/avatar.jpg"),
+          ),
+        ),
       ),
     );
   }
