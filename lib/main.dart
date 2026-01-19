@@ -19,7 +19,7 @@ void main() {
             ],
             backgroundColor: Colors.black54,
           ),
-          body: HomePage(),
+          body: MyWidget(),
           bottomNavigationBar: BottomNavigationBar(
             items: [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
@@ -64,7 +64,129 @@ class MyWidgetBuild extends State<MyWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return animatedOpacity();
+    //LayoutBuilder
+    return Center(
+      child: SizedBox(
+        width: 400,
+        height: 200,
+        child: LayoutBuilder(
+          builder: (context, constraints){
+            if (constraints.maxWidth>300) {
+              return Container(
+                color: Colors.cyan,
+                child: Center(
+                  child: Text(
+                    "Rong"
+                  ),
+                ),
+              );
+            } else {
+              return Container(
+                color: Colors.green,
+                child: Center(
+                  child: Text(
+                    "Hep"
+                  ),
+                ),
+              );
+            }
+          },
+        ),
+      ),
+    );
+    //MediaQuery
+    return Builder(
+      builder: (context){
+        final width = MediaQuery.of(context).size.width;
+
+        return Center(
+          child: Container(
+            width: width * 0.8,
+            height: 100,
+            color: Colors.deepOrangeAccent,
+            child: Center(
+              child: Text(
+                "80% Screen"
+              ),
+            ),
+          ),
+        );
+      },
+    );
+
+    // prevent over flow
+    return Row(
+      children: [
+        Icon(Icons.eighteen_up_rating),
+        Expanded(
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "asdaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              style: TextStyle(
+                fontSize: 30
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          color: Colors.red,
+          height: 100,
+          width: 100,
+        ),
+        offstage(),
+        Container(
+          color: Colors.cyanAccent,
+          height: 100,
+          width: 100,
+        )
+      ],
+    );
+
+    return aspectRatio();
+  }
+
+  AspectRatio aspectRatio(){
+    return AspectRatio(
+      aspectRatio: 16/9,
+      child: Container(
+        color: Colors.deepOrangeAccent,
+      ),
+    );
+  }
+
+  //co chiem cho
+  Visibility visibility(){
+    return Visibility(
+      visible: false,
+      // maintainAnimation: true,
+      // maintainState: true,
+      // maintainSize: true,
+      child: Container(
+        color: Colors.tealAccent,
+        height: 100,
+        width: 100,
+      )
+    );
+  }
+
+  //khong chiem cho
+  Offstage offstage(){
+    return Offstage(
+      offstage: false,
+      child: Container(
+        color: Colors.black,
+        height: 100,
+        width: 100,
+      )
+    );
   }
 
   GestureDetector gestureDetector() {
