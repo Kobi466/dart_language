@@ -115,14 +115,20 @@ class MyWidgetBuild extends State<MyWidget> {
           visible = !visible;
         });
       },
-      child: AnimatedOpacity(
-        opacity: visible ? 1.0 : 0.0,
-        duration: const Duration(milliseconds: 500),
-        child: Container(
-          padding: const EdgeInsets.all(24),
-          color: Colors.blue,
-          child: const Text('TAP ME', style: TextStyle(color: Colors.white, fontSize: 24)),
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          AnimatedOpacity(
+            opacity: visible ? 1.0 : 0.3,
+            duration: const Duration(seconds: 1),
+            child: Container(
+              padding: const EdgeInsets.all(24),
+              color: Colors.blue,
+              child: const Text('TAP ME', style: TextStyle(color: Colors.white, fontSize: 24)),
+            ),
+          ),
+          Text("Visible: $visible"),
+        ],
       ),
     );
   }
