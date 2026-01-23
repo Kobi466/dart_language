@@ -1,261 +1,182 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MaterialApp(
-    home: SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text("Tan loi"),
-            backgroundColor: Colors.deepPurpleAccent,
-          ),
-          body: MyWidgetStateFul(),
-          bottomNavigationBar: BottomNavigationBar(items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-            BottomNavigationBarItem(icon: Icon(Icons.eighteen_up_rating_sharp), label: "Home"),
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          ])
-        ),
-    ),
-    debugShowCheckedModeBanner: false,
-    title: "Flutter Demo",
-    theme: ThemeData(
-      fontFamily: "Freedom-10eM",
-    ),
-    darkTheme: ThemeData.dark(),
-  ));
+  runApp(const MyApp());
 }
 
-// class MyWidgetStateLess extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.all(8.0),
-//       child: TextField(
-//         decoration: InputDecoration(
-//           labelText: "User Name",
-//           hintText: "Enter your name",
-//           prefixIcon: Icon(Icons.person),
-//           border: OutlineInputBorder(),
-//         ),
-//       ),
-//     );
-//   }
-// }
-class MyWidgetStateFul extends StatefulWidget{
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return Build();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: RegisterScreen(),
+    );
   }
 }
-class Build extends State<MyWidgetStateFul>{
-  final controller = TextEditingController();
 
-  final _formKey = GlobalKey<FormState>();
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  @override
+  State<RegisterScreen> createState() {
+    return RegisterState();
+  }
+}
 
-  bool isChecked = false;
-  bool isOn = false;
-  int gender = 0;
-  String selected = 'A';
-  double value = 50;
+class RegisterState extends State<RegisterScreen> {
+  final _form = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPassword = TextEditingController();
+  bool _agreeTerms = false;
+  bool _isFormValid = false;
+  bool _isLoading = false;
 
   @override
   void dispose() {
-    controller.dispose();
-    emailController.dispose();
-    passwordController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPassword.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    return slider();
-  }
-  Padding input(){
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          TextField(
-            controller: controller,
-            keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(
-              labelText: "User Name",
-              hintText: "Enter your name",
-              prefixIcon: Icon(Icons.person),
-              border: OutlineInputBorder(),
-            ),
-          ),
-          SizedBox(height: 10,),
-          TextField(
-            obscureText: true,
-            maxLength: 20,
-            decoration: InputDecoration(
-              labelText: "Password",
-              hintText: "Enter your password",
-              prefixIcon: Icon(Icons.lock),
-              border: OutlineInputBorder(),
-              errorText: 'Khong du ki tu'
-            ),
-          ),
-          Row(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Register'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Form(
+          key: _form,
+          onChanged: _validateForm,
+          child: Column(
             children: [
-              InkWell(
-                child: Text("Don't have an account?"),
-                onTap: (){
-
+              //email
+              TextFormField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  hintText: 'Enter your email',
+                  prefixIcon: const Icon(Icons.email),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(5)))
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your email';
+                  } else if (!value.contains('@')) {
+                    return 'Please enter a valid email';
+                  }
                 },
               ),
-              SizedBox(width: 100),
-              ElevatedButton(
-                  onPressed: (){
-                    print(controller.text);
-                  },
-                  child: Text("Login")
+              const SizedBox(height: 12,),
+              //password
+              TextFormField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  hintText: 'Enter your password',
+                  prefixIcon: const Icon(Icons.lock),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
+                  suffixIcon: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.visibility),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your password';
+                  } else if (value.length < 6) {
+                    return 'Password must be at least 6 characters';
+                  }
+                }
               ),
+              const SizedBox(height: 12,),
+              //confirm password
+              TextFormField(
+                controller: _confirmPassword,
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Confirm Password',
+                  hintText: 'Confirm your password',
+                  prefixIcon: const Icon(Icons.lock),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
+                  suffixIcon: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.visibility),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please confirm your password';
+                  } else if (value != _passwordController.text) {
+                    return 'Passwords do not match';
+                  }
+                }
+              ),
+              const SizedBox(height: 12,),
+              //check box terms
+              Row(
+                children: [
+                  Checkbox(
+                    value: _agreeTerms,
+                    onChanged: (value) {
+                      setState(() {
+                        _agreeTerms = value ?? false;
+                        _validateForm();
+                      });
+                    },
+                  ),
+                  Expanded(
+                    child: Text(
+                      "Toi dong y voi dieu khoan su dung"
+                    ),
+                  )
+                ],
+              ),
+              //submit form
+              ElevatedButton(
+                onPressed: (!_isFormValid || _isLoading) ? null : _submit,
+                child: _isLoading ? SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: const CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: Colors.white,
+                  ),
+                ) : Text("Submit")
+              )
             ],
           ),
-          SizedBox(height: 10,),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-                onPressed: (){
-
-                },
-                child: Text("Register")
-            ),
-          ),
-          SizedBox(height: 10,),
-          //Search
-          TextField(
-            onChanged: (value){
-              print(value);
-            },
-          ),
-        ],
-      ),
-    );
-  }
-  Widget form(){
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          CircleAvatar(
-            radius: 50,
-            backgroundImage: AssetImage("assets/images/avatar.jpg"),
-          ),
-          Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                const SizedBox(height: 10,),
-                TextFormField(
-                  controller: emailController,
-                  decoration: InputDecoration(
-                    labelText: "Email",
-                    hintText: "Enter your email",
-                    prefixIcon: Icon(Icons.email),
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (v) =>
-                  v != null && v.contains('@') ? null : "Email is not valid",
-                ),
-                SizedBox(height: 10,),
-                TextFormField(
-                  obscureText: true,
-                  controller: passwordController,
-                  decoration: InputDecoration(
-                    labelText: "Password",
-                    hintText: "Enter your password",
-                    prefixIcon: Icon(Icons.password),
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (v) =>
-                  v != null && v.length >= 6 ? null : "Password is not valid",
-                ),
-                const SizedBox(height: 16,),
-                ElevatedButton(
-                    onPressed: (){
-                      if(_formKey.currentState!.validate()){
-                        print(AutofillHints.username);
-                        print(AutofillHints.password);
-                      }
-                    },
-                    child: Text("Login")
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-  Checkbox checkbox(){
-    return Checkbox(
-      value: isChecked,
-      onChanged: (value){
-        setState(() {
-          isChecked = value!;
-        });
-      },
-    );
-  }
-  Switch turnOff(){
-    return Switch(
-      value: isOn,
-      onChanged: (value) {
-        setState(() {
-          isOn = value;
-        });
-      },
-    );
-  }
-  Row radio(){
-    return Row(
-      children: [
-        Radio(
-          value: gender,
-          onChanged: (value){
-            setState(() {
-              gender = value!;
-            });
-          },
         ),
-      ],
+      )
     );
   }
-  DropdownButton dropdownButton(){
-    return DropdownButton<String>(
-      value: selected,
-      items: ['A', 'B', 'C'].map(
-          (e) => DropdownMenuItem(
-            value: e,
-            child: Text(e),
-          )
-      ).toList(),
-      onChanged: (value){
-        setState(() {
-          selected = value!;
-        });
-      },
-    );
+  void _validateForm(){
+    final isValid  =  _form.currentState?.validate() ?? false;
+    setState(() {
+      _isFormValid = isValid && _agreeTerms;
+    });
   }
-  Slider slider(){
-    return Slider(
-      value: value,
-      min: 0,
-      max: 100,
-      divisions: 10,
-      label: value.round().toString(),
-      onChanged: (v) {
-        setState(() {
-          value = v;
-        });
-      },
+
+  Future<void> _submit() async{
+    setState(() {
+      _isLoading = true;
+    });
+    await Future.delayed(const Duration(seconds: 2));
+    setState(() {
+      _isLoading = false;
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Dang ky thanh cong'
+        ),
+      )
     );
   }
 }
-
