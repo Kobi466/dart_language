@@ -5,6 +5,13 @@ class UserModel{
 
   UserModel({required this.id, required this.fullName, required this.email});
 
+  int get getId => id;
+
+  String get getFullName => fullName;
+
+  String get getEmail => email;
+
+
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
       id: json['id'],

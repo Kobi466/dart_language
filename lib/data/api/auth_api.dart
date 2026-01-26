@@ -17,4 +17,18 @@ class AuthApi {
     );
     return response.data;
   }
+
+  Future<void> logout(String accessToken) async {
+    await _dio.post(
+      "/auth/logout",
+      // options: Options(
+      //   headers: {
+      //     "Authorization": "Bearer $accessToken",
+      //   },
+      // ),
+      data: {
+        "accessToken": accessToken
+      }
+    );
+  }
 }
