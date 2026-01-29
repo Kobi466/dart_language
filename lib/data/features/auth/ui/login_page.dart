@@ -1,4 +1,5 @@
-import 'package:first_app/providers/auth_provider.dart';
+import 'package:first_app/data/features/auth/providers/auth_provider.dart';
+import 'package:first_app/data/features/profile/provider/profile_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,7 +9,6 @@ class LoginPage extends StatelessWidget{
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -69,28 +69,45 @@ class LoginPage extends StatelessWidget{
                 auth.error!,
                 style: const TextStyle(color: Colors.red),
               ),
-            auth.isLoading ? const CircularProgressIndicator()
-                : ElevatedButton(
-              onPressed: () {
-                auth.login(
-                  _emailController.text,
-                  _passwordController.text,
-                );
-              },
-              child: const Text('Login'),
+            // auth.isLoading ? const CircularProgressIndicator()
+            //     : ElevatedButton(
+            //   onPressed: () {
+            //     auth.login(
+            //       _emailController.text,
+            //       _passwordController.text,
+            //     );
+            //   },
+            //   child: const Text('Login'),
+            // ),
+            // const SizedBox(height: 20,),
+            // if (auth.isLoggedIn)
+            //   Text(
+            //     "Welcome ${auth.user!.fullName}",
+            //     style: const TextStyle(fontSize: 20),
+            //   )
+            ElevatedButton(
+              onPressed: auth.isLoading 
+                  ? null : () async {
+                      await context.read<AuthProvider>().login(
+                        _emailController.text,
+                        _passwordController.text,
+                      );
+                      // ignore: use_build_context_synchronously
+                      if(context.read<AuthProvider>().isLoggedIn){
+                        // ignore: use_build_context_synchronously
+                        await context.read<ProfileProvider>().getProfile();
+                      }
+                    },
+              child: auth.isLoading
+                  ? const CircularProgressIndicator()
+                  : const Text('Login'),
             ),
-            const SizedBox(height: 20,),
-            if (auth.isLoggedIn)
-              Text(
-                "Welcome ${auth.user!.fullName}",
-                style: const TextStyle(fontSize: 20),
-              )
           ],
         ),
       ),
     );
   }
-  bool get isFormValid {
-    return _formKey.currentState!.validate();
-  }
+  // bool get isFormValid {
+  //   return _formKey.currentState!.validate();
+  // }
 }

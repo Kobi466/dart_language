@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:first_app/data/api/dio_client.dart';
+import 'package:first_app/data/core/dio/dio_client.dart';
 
 class AuthApi {
   final Dio _dio = DioClient.dio;

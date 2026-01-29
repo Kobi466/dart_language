@@ -1,19 +1,15 @@
-import 'package:first_app/data/api/auth_api.dart';
-import 'package:first_app/data/api/profile_api.dart';
-import 'package:first_app/data/models/auth_model.dart';
-import 'package:first_app/data/models/profile_model.dart';
-import 'package:first_app/data/models/token_model.dart';
-import 'package:first_app/data/storage/token_storage.dart';
+import 'package:first_app/data/features/auth/data/auth_api.dart';
+import 'package:first_app/data/features/auth/data/auth_model.dart';
+import 'package:first_app/data/core/storage/token_model.dart';
+import 'package:first_app/data/core/storage/token_storage.dart';
 import 'package:flutter/cupertino.dart';
 
 class AuthProvider extends ChangeNotifier{
   final AuthApi _authApi = AuthApi();
-  final ProfileApi _profileApi = ProfileApi();
 
 
   UserModel? user;
   TokenModel? token;
-  ProfileModel? profile;
 
   bool isLoading = false;
 
@@ -38,13 +34,11 @@ class AuthProvider extends ChangeNotifier{
           refreshToken: token!.refreshToken
       );
 
-      profile = await _profileApi.getProfile();
       notifyListeners();
     } catch (e){
       error = e.toString();
     } finally {
       isLoading = false;
-      notifyListeners();
     }
   }
 
@@ -60,7 +54,6 @@ class AuthProvider extends ChangeNotifier{
       notifyListeners();
     }
     try{
-      profile = await _profileApi.getProfile();
     }catch(e){
       await logout();
     }
@@ -81,5 +74,4 @@ class AuthProvider extends ChangeNotifier{
   }
 
   bool get isLoggedIn => token != null;
-  bool get hasProfile => profile != null;
 }
