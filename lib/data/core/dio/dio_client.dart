@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:first_app/data/core/storage/token_service.dart';
 
 import '../storage/token_storage.dart';
 
@@ -20,11 +21,25 @@ class DioClient {
     DioClient.dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          final token = await TokenStorage.getAccessToken();
-          if (token != null) {
-            options.headers['Authorization'] = 'Bearer $token';
+          final accessToken = await TokenStorage.getAccessToken();
+          if (accessToken != null) {
+            if(await TokenStorage.isAccessTokenExpired()){
+              await TokenService.refreshToken();
+            }
+            options.headers['Authorization'] = 'Bearer $accessToken';
           }
           return handler.next(options);
+        },
+        onError: (error, handler) async {
+          if (error.response?.statusCode == 401) {
+            await TokenService.refreshToken();
+            final accessToken = await TokenStorage.getAccessToken();
+            if (accessToken != null) {
+              error.requestOptions.headers['Authorization'] = 'Bearer $accessToken';
+              return handler.resolve(await DioClient.dio.fetch(error.requestOptions));
+            }
+          }
+          return handler.next(error);
         },
       ),
     );

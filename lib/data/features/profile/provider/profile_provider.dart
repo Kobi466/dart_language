@@ -61,6 +61,7 @@ class ProfileProvider extends ChangeNotifier {
       _profile = _profile?.copyWith(avatar: res);
       notifyListeners();
     } catch (e) {
+      print(e.toString());
       rethrow;
     } finally {
       _isUploadingAvatar = false;
