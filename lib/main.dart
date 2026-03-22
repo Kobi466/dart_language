@@ -1,5 +1,6 @@
-import 'package:first_app/data/api/dio_client.dart';
-import 'package:first_app/providers/auth_provider.dart';
+import 'package:first_app/data/core/dio/dio_client.dart';
+import 'package:first_app/data/features/auth/providers/auth_provider.dart';
+import 'package:first_app/data/features/profile/provider/profile_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
@@ -14,9 +15,12 @@ void main() async {
   await authProvider.loadAuth();
 
   runApp(
-    ChangeNotifierProvider<AuthProvider>.value(
-      value: authProvider,
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: authProvider),
+        ChangeNotifierProvider(create: (_) => ProfileProvider()),
+      ],
       child: const MyApp(),
-    ),
+    )
   );
 }

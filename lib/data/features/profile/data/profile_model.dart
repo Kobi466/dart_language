@@ -21,6 +21,30 @@ class ProfileModel {
     this.youtube,
   });
 
+  ProfileModel copyWith({
+    int? id,
+    String? fullName,
+    String? about,
+    String? avatar,
+    String? personalWebsite,
+    String? github,
+    String? linkedin,
+    String? facebook,
+    String? youtube,
+  }) {
+    return ProfileModel(
+      id: id ?? this.id,
+      fullName: fullName ?? this.fullName,
+      about: about ?? this.about,
+      avatar: avatar ?? this.avatar,
+      personalWebsite: personalWebsite ?? this.personalWebsite,
+      github: github ?? this.github,
+      linkedin: linkedin ?? this.linkedin,
+      facebook: facebook ?? this.facebook,
+      youtube: youtube ?? this.youtube,
+    );
+  }
+
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
     return ProfileModel(
       id: json['id'],

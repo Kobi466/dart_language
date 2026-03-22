@@ -1,19 +1,15 @@
-import 'package:first_app/data/api/auth_api.dart';
-import 'package:first_app/data/api/profile_api.dart';
-import 'package:first_app/data/models/auth_model.dart';
-import 'package:first_app/data/models/profile_model.dart';
-import 'package:first_app/data/models/token_model.dart';
-import 'package:first_app/data/storage/token_storage.dart';
+import 'package:first_app/data/core/storage/token_service.dart';
+import 'package:first_app/data/features/auth/data/auth_api.dart';
+import 'package:first_app/data/features/auth/data/auth_model.dart';
+import 'package:first_app/data/core/storage/token_model.dart';
+import 'package:first_app/data/core/storage/token_storage.dart';
 import 'package:flutter/cupertino.dart';
 
-class AuthProvider extends ChangeNotifier{
+class AuthProvider extends ChangeNotifier {
   final AuthApi _authApi = AuthApi();
-  final ProfileApi _profileApi = ProfileApi();
-
 
   UserModel? user;
   TokenModel? token;
-  ProfileModel? profile;
 
   bool isLoading = false;
 
@@ -25,22 +21,20 @@ class AuthProvider extends ChangeNotifier{
     notifyListeners();
 
     try {
-      final response = await _authApi.login(
-          email: email,
-          password: password
-      );
+      final response = await _authApi.login(email: email, password: password);
       // Parse response
       user = UserModel.fromJson(response['data']['user']);
       token = TokenModel.fromJson(response['data']['token']);
       // Save token to storage
       await TokenStorage.saveToken(
-          accessToken: token!.accessToken,
-          refreshToken: token!.refreshToken
+        accessToken: token!.accessToken,
+        refreshToken: token!.refreshToken,
+        accessExpiresAt: token!.accessExpiresAt,
+        refreshExpiresAt: token!.refreshExpiresAt,
       );
 
-      profile = await _profileApi.getProfile();
       notifyListeners();
-    } catch (e){
+    } catch (e) {
       error = e.toString();
     } finally {
       isLoading = false;
@@ -51,17 +45,23 @@ class AuthProvider extends ChangeNotifier{
   Future<void> loadAuth() async {
     final accessToken = await TokenStorage.getAccessToken();
     final refreshToken = await TokenStorage.getRefreshToken();
+    final accessExpiresAt = await TokenStorage.getAccessExpiresAt();
+    final refreshExpiresAt = await TokenStorage.getRefreshExpiresAt();
 
     if (accessToken != null && refreshToken != null) {
       token = TokenModel(
-          accessToken: accessToken,
-          refreshToken: refreshToken
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+        accessExpiresAt: DateTime.parse(accessExpiresAt!),
+        refreshExpiresAt: DateTime.parse(refreshExpiresAt!),
       );
-      notifyListeners();
     }
-    try{
-      profile = await _profileApi.getProfile();
-    }catch(e){
+    notifyListeners();
+    try {
+      if (token != null && await TokenStorage.isAccessTokenExpired()) {
+        await TokenService.refreshToken();
+      }
+    } catch (e) {
       await logout();
     }
   }
@@ -81,5 +81,4 @@ class AuthProvider extends ChangeNotifier{
   }
 
   bool get isLoggedIn => token != null;
-  bool get hasProfile => profile != null;
 }
